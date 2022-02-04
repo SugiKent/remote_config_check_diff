@@ -10,6 +10,4 @@ jobs:
         run: |
           echo-n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /home/node/app/credentials.json
       - name: check_diff
-        uses: SugiKent/remote_config_as_code@main
-        run: |
-          npm run checkDiff
+        uses: SugiKent/config_check_diff@main
