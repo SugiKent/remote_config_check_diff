@@ -6,7 +6,7 @@ jobs:
     steps:
       - name: check_diff
         env:
-          - BASE64_CREDENTIALS_CONTENT: ${{ secrets.Credentials }}
+          BASE64_CREDENTIALS_CONTENT: ${{ secrets.Credentials }}
         run: |
           echo-n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /home/node/app/credentials.json
       - name: check_diff
