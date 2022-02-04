@@ -9,4 +9,5 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "run", "checkDiff" ]
+# CMD [ "npm", "run", "checkDiff" ]
+ENTRYPOINT [“node”, “diff.js”]
