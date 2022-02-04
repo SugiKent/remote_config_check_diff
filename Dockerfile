@@ -9,5 +9,6 @@ RUN npm install
 
 COPY . .
 
+WORKDIR /scripts
 ENTRYPOINT [ "npm", "run", "checkDiff" ]
 # ENTRYPOINT [“node”, “/scripts/diff.js”]
