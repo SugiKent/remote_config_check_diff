@@ -10,4 +10,4 @@ jobs:
         run: |
           echo-n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /home/node/app/credentials.json
       - name: check_diff
-        uses: ghcr.io/sugikent/remoteconfig_as_code/config_check_diff:latest
+        uses: ghcr.io/sugikent/remoteconfig_as_code/config_check_diff@latest
