@@ -10,18 +10,15 @@ async function main() {
   });
 
   const config = getRemoteConfig();
-  config
-    .getTemplate()
-    .then(function (template) {
-      console.log("ETag from server: " + template.etag);
-      var templateStr = JSON.stringify(template);
-      fs.writeFileSync("config.json", templateStr);
-    })
-    .catch(function (err) {
-      console.error("Unable to get template");
-      console.error(err);
-    });
-
+  try {
+    const template = await config.getTemplate();
+    console.log("ETag from server: " + template.etag);
+    var templateStr = JSON.stringify(template);
+    fs.writeFileSync("config.json", templateStr);
+  } catch (err) {
+    console.error("Unable to get template");
+    console.error(err);
+  }
   console.log("Finished");
 }
 
