@@ -1,0 +1,13 @@
+name: RemoteCondifAsCode
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        env:
+          - BASE64_CREDENTIALS_CONTENT: ${{ secrets.Credentials }}
+        uses: SugiKent/remote_config_as_code@main
+      - name: check_diff
+        run: |
+          npm run checkDiff

@@ -1,0 +1,13 @@
+{
+  "name": "remote_config_as_code",
+  "version": "1.0.0",
+  "description": "Management Remote Config as code",
+  "author": "SugiKent",
+  "main": "diff.js",
+  "scripts": {
+    "checkDiff": "node diff.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^10.0.2"
+  }
+}

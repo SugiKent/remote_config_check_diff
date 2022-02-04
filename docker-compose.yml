@@ -1,0 +1,14 @@
+version: "2"
+services:
+  check_diff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+      - GOOGLE_APPLICATION_CREDENTIALS="/home/node/app/credentials.json"
+    # volumes:
+    #   - ./:/home/node/app
+    command: "npm run checkDiff"
