@@ -4,10 +4,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: setup
+      - name: check_diff
         env:
           - BASE64_CREDENTIALS_CONTENT: ${{ secrets.Credentials }}
-        uses: SugiKent/remote_config_as_code@main
+        run: |
+          echo-n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /home/node/app/credentials.json
       - name: check_diff
+        uses: SugiKent/remote_config_as_code@main
         run: |
           npm run checkDiff
