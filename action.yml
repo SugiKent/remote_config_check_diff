@@ -1,0 +1,9 @@
+name: "Check diff of Remote Config JSON"
+author: "SugiKent"
+description: "check diff of remote config json and comment it."
+runs:
+  using: "docker"
+  image: "DockerfileCheckDiff"
+branding:
+  icon: "file"
+  color: "blue"
