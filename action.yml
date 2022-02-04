@@ -3,7 +3,7 @@ author: "SugiKent"
 description: "check diff of remote config json and comment it."
 runs:
   using: "docker"
-  image: "DockerfileCheckDiff"
+  image: "Dockerfile"
 branding:
   icon: "file"
   color: "blue"
