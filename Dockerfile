@@ -10,4 +10,5 @@ RUN npm install
 COPY . .
 
 ENTRYPOINT [ "npm", "run", "checkDiff" ]
+CMD [ "cat", "./config.json" ]
 # ENTRYPOINT [“node”, “/scripts/diff.js”]
