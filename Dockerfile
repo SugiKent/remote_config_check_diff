@@ -1,7 +1,7 @@
 FROM node:17
 
 RUN ls -la
-COPY ./credentials.json /scripts/
+COPY ./credentials.json /scripts/credentials.json
 WORKDIR /scripts
 RUN ls -la
 # RUN echo -n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /scripts/credentials.json
