@@ -5,8 +5,11 @@ const { getRemoteConfig } = require("firebase-admin/remote-config");
 async function main() {
   console.log("Start");
 
-  const cred = fs.readFileSync("./credentials.json", { flag: "r" });
-  console.log({ cred: cred.toString() });
+  try {
+    const cred = fs.readFileSync("./credentials.json", { flag: "r" });
+  } catch (e) {
+    console.log("Credentials が Secret に保存されていません。");
+  }
 
   initializeApp({
     credential: applicationDefault(),
