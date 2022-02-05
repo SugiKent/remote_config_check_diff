@@ -5,8 +5,8 @@ const { getRemoteConfig } = require("firebase-admin/remote-config");
 async function main() {
   console.log("Start");
 
-  const cred = await fs.readFileSync("./credentials.json", { flag: "r" });
-  console.log({ cred });
+  const cred = fs.readFileSync("./credentials.json", { flag: "r" });
+  console.log({ cred: cred.toString() });
 
   initializeApp({
     credential: applicationDefault(),
