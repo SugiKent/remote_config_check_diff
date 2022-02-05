@@ -1,7 +1,7 @@
 FROM node:17
 
 WORKDIR /scripts
-RUN echo -n $BASE64_CREDENTIALS_CONTENT
+RUN env
 RUN echo -n $BASE64_CREDENTIALS_CONTENT | base64 --decode > /scripts/credentials.json
 RUN ls -la /scripts/
 RUN cat /scripts/credentials.json
