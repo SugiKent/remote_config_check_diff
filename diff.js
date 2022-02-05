@@ -5,6 +5,9 @@ const { getRemoteConfig } = require("firebase-admin/remote-config");
 async function main() {
   console.log("Start");
 
+  const cred = fs.readFileSync("./credentials.json");
+  console.log({ cred });
+
   initializeApp({
     credential: applicationDefault(),
   });
@@ -14,6 +17,7 @@ async function main() {
     const template = await config.getTemplate();
     console.log("ETag from server: " + template.etag);
     var templateStr = JSON.stringify(template);
+    console.log(templateStr);
     fs.writeFileSync("config.json", templateStr);
   } catch (err) {
     console.error("Unable to get template");
