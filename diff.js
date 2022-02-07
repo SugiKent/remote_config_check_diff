@@ -38,7 +38,7 @@ async function main() {
       console.log("GITHUB_TOKEN not exist");
       return;
     }
-    const octokit = new github.GitHub(token);
+    const octokit = new github.getOctokit(token);
     const repoWithOwner = process.env["GITHUB_REPOSITORY"];
     const [owner, repo] = repoWithOwner.split("/");
     const response = await octokit.issues.createComment({
