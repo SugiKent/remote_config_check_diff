@@ -29,7 +29,7 @@ async function main() {
       fs.writeFileSync("./config.json", templateStr);
     } catch (err) {
       console.error(err);
-      throw e;
+      throw err;
     }
 
     const pr = github.context.payload.pull_request;
