@@ -1,5 +1,6 @@
 FROM node:17
 
+RUN pwd
 RUN ls -la
 COPY  credentials.json /scripts/credentials.json
 WORKDIR /scripts
