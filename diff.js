@@ -43,7 +43,7 @@ async function main() {
     const [owner, repo] = repoWithOwner.split("/");
     console.log({ octokit });
     console.log({ issues: octokit.issues });
-    const response = await octokit.issues.createComment({
+    const response = await octokit.rest.issues.createComment({
       owner,
       repo,
       issue_number: pr.number,
