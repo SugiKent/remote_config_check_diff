@@ -11,10 +11,12 @@ async function main() {
     console.log("Credentials が Secret に保存されていません。");
   }
 
-  console.log(process.env.BASE64_CREDENTIALS_CONTENT);
-  const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
-  console.log({ decoded });
-  console.log({ json: JSON.parse(decoded) });
+  try {
+    const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
+    fs.writeFileSync("/scripts/credentials.json", JSON.parse(decoded));
+  } catch (e) {
+    console.log("Credentials の取得に失敗しました");
+  }
 
   initializeApp({
     credential: applicationDefault(),
