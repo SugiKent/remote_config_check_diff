@@ -13,7 +13,7 @@ async function main() {
 
   try {
     const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
-    fs.writeFileSync("./credentials.json", JSON.parse(decoded));
+    fs.writeFileSync("./credentials.json", decoded);
   } catch (e) {
     console.error({ e });
     console.log("Credentials の取得と保存に失敗しました");
