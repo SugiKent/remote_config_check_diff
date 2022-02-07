@@ -8,6 +8,7 @@
     "checkDiff": "node diff.js"
   },
   "dependencies": {
+    "@actions/github": "^5.0.0",
     "firebase-admin": "^10.0.2"
   }
 }

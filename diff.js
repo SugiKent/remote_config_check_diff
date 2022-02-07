@@ -1,40 +1,56 @@
 const fs = require("fs");
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
 const { getRemoteConfig } = require("firebase-admin/remote-config");
+const core = require("@actions/core");
+const github = require("@actions/github");
 
 async function main() {
-  console.log("Start");
-
   try {
-    const cred = fs.readFileSync("./credentials.json", { flag: "r" });
-  } catch (e) {
-    console.log("Credentials が Secret に保存されていません。");
-  }
+    console.log("Start");
 
-  try {
-    const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
-    fs.writeFileSync("./credentials.json", decoded);
-  } catch (e) {
-    console.error({ e });
-    console.log("Credentials の取得と保存に失敗しました");
-  }
+    try {
+      const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
+      fs.writeFileSync("./credentials.json", decoded);
+    } catch (e) {
+      console.error({ e });
+      console.log("Credentials の取得と保存に失敗しました");
+      throw e;
+    }
 
-  initializeApp({
-    credential: applicationDefault(),
-  });
+    initializeApp({
+      credential: applicationDefault(),
+    });
 
-  const config = getRemoteConfig();
-  try {
-    const template = await config.getTemplate();
-    console.log("ETag from server: " + template.etag);
-    var templateStr = JSON.stringify(template);
-    console.log(templateStr);
-    fs.writeFileSync("config.json", templateStr);
-  } catch (err) {
-    console.error("Unable to get template");
-    console.error(err);
+    const config = getRemoteConfig();
+    try {
+      const template = await config.getTemplate();
+      var templateStr = JSON.stringify(template);
+      console.log(templateStr);
+      fs.writeFileSync("./config.json", templateStr);
+    } catch (err) {
+      console.error(err);
+      throw e;
+    }
+
+    const pr = github.context.payload.pull_request;
+    const token = process.env["GITHUB_TOKEN"];
+    if (!token) {
+      console.log("GITHUB_TOKEN not exist");
+      return;
+    }
+    const octokit = new github.GitHub(token);
+    const repoWithOwner = process.env["GITHUB_REPOSITORY"];
+    const [owner, repo] = repoWithOwner.split("/");
+    const response = await octokit.issues.createComment({
+      owner,
+      repo,
+      issue_number: pr.number,
+      body: message,
+    });
+    console.log("Finished");
+  } catch (error) {
+    core.setFailed(error.message);
   }
-  console.log("Finished");
 }
 
 main();
