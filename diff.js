@@ -41,11 +41,13 @@ async function main() {
     const octokit = new github.getOctokit(token);
     const repoWithOwner = process.env["GITHUB_REPOSITORY"];
     const [owner, repo] = repoWithOwner.split("/");
+    console.log({ octokit });
+    console.log({ issues: octokit.issues });
     const response = await octokit.issues.createComment({
       owner,
       repo,
       issue_number: pr.number,
-      body: message,
+      body: "aaa",
     });
     console.log("Finished");
   } catch (error) {
