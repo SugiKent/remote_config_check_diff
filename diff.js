@@ -11,6 +11,11 @@ async function main() {
     console.log("Credentials が Secret に保存されていません。");
   }
 
+  console.log(process.env.BASE64_CREDENTIALS_CONTENT);
+  const decoded = atob(process.env.BASE64_CREDENTIALS_CONTENT);
+  console.log({ decoded });
+  console.log({ json: JSON.parse(decoded) });
+
   initializeApp({
     credential: applicationDefault(),
   });
