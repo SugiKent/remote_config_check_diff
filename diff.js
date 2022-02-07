@@ -42,7 +42,7 @@ async function main() {
     const repoWithOwner = process.env["GITHUB_REPOSITORY"];
     const [owner, repo] = repoWithOwner.split("/");
     console.log({ octokit });
-    console.log({ issues: octokit.issues });
+    console.log({ issues: octokit.rest.issues });
 
     console.log({ owner });
     console.log({ repo });
