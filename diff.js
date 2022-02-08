@@ -50,6 +50,7 @@ async function main() {
     console.log({ owner });
     console.log({ repo });
     console.log({ number: pull_request.number });
+    console.log({ pr_number: process.env.PR_NUMBER });
     const response = await octokit.rest.issues.createComment({
       owner,
       repo,
