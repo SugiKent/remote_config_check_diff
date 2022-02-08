@@ -33,31 +33,23 @@ async function main() {
       throw err;
     }
 
-    console.log({ context });
-    console.log({ issue: context.issue });
     const { pull_request } = context.payload;
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
-      console.log("GITHUB_TOKEN not exist");
+      console.error("GITHUB_TOKEN not exist");
       return;
     }
     const octokit = new github.getOctokit(token);
     const repoWithOwner = process.env["GITHUB_REPOSITORY"];
     const [owner, repo] = repoWithOwner.split("/");
-    console.log({ octokit });
-    console.log({ issues: octokit.rest.issues });
 
-    console.log({ owner });
-    console.log({ repo });
-    console.log({ number: pull_request.number });
     console.log({ pr_number: process.env.PR_NUMBER });
     const response = await octokit.rest.issues.createComment({
       owner,
       repo,
-      issue_number: pull_request.number,
+      issue_number: process.env.PR_NUMBER,
       body: "aaa",
     });
-    console.log({ response });
     console.log("Finished");
   } catch (error) {
     core.setFailed(error.message);
