@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { initializeApp, applicationDefault } = require("firebase-admin/app");
 const { getRemoteConfig } = require("firebase-admin/remote-config");
+const jsonDiff = require("json-diff");
 const core = require("@actions/core");
 const github = require("@actions/github");
 const { context } = require("@actions/github");
@@ -22,16 +23,27 @@ async function main() {
       credential: applicationDefault(),
     });
 
+    let remoteConfig = "";
     const config = getRemoteConfig();
     try {
-      const template = await config.getTemplate();
-      var templateStr = JSON.stringify(template);
-      console.log(templateStr);
-      fs.writeFileSync("./config.json", templateStr);
+      currentConfig = await config.getTemplate();
     } catch (err) {
       console.error(err);
       throw err;
     }
+
+    let localConfigFile = "";
+    try {
+      localConfigFile = JSON.parse(
+        fs.readFileSync("/github/workspace/remote_config.json")
+      );
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+
+    const result = jsonDiff.diffString(currentConfig, localConfigFile);
+    console.log({ result });
 
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
@@ -47,9 +59,8 @@ async function main() {
       owner,
       repo,
       issue_number: pr_number,
-      body: "aaa",
+      body: result,
     });
-    console.log({ response });
     console.log("Finished");
   } catch (error) {
     core.setFailed(error.message);
