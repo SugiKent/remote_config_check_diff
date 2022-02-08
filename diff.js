@@ -33,7 +33,6 @@ async function main() {
       throw err;
     }
 
-    const { pull_request } = context.payload;
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
       console.error("GITHUB_TOKEN not exist");
@@ -43,11 +42,11 @@ async function main() {
     const repoWithOwner = process.env["GITHUB_REPOSITORY"];
     const [owner, repo] = repoWithOwner.split("/");
 
-    console.log({ pr_number: process.env.PR_NUMBER });
+    const pr_number = process.env.PR_NUMBER;
     const response = await octokit.rest.issues.createComment({
       owner,
       repo,
-      issue_number: process.env.PR_NUMBER,
+      pull_request: pr_number,
       body: "aaa",
     });
     console.log("Finished");
