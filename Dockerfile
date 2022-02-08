@@ -13,6 +13,7 @@ COPY ./package.json ./package-lock.json ./entrypoint.sh /scripts/
 RUN npm install
 
 COPY . .
+COPY /github/workspace /github/workspace
 
 # ENTRYPOINT [ "npm", "run", "checkDiff" ]
 ENTRYPOINT [ "/scripts/entrypoint.sh" ]
