@@ -42,8 +42,12 @@ async function main() {
       throw err;
     }
 
-    const result = jsonDiff.diffString(currentConfig, localConfigFile);
+    const result = jsonDiff.diff(currentConfig, localConfigFile, {
+      color: false,
+    });
     console.log({ result });
+
+    let commentBody = "```diff" + result + "```";
 
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
