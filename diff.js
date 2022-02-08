@@ -3,6 +3,7 @@ const { initializeApp, applicationDefault } = require("firebase-admin/app");
 const { getRemoteConfig } = require("firebase-admin/remote-config");
 const core = require("@actions/core");
 const github = require("@actions/github");
+const { context } = require("@actions/github");
 
 async function main() {
   try {
@@ -32,7 +33,9 @@ async function main() {
       throw err;
     }
 
-    const { pull_request } = github.context.payload;
+    console.log({ context });
+    console.log({ issue: context.issue });
+    const { pull_request } = context.payload;
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
       console.log("GITHUB_TOKEN not exist");
