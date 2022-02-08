@@ -27,6 +27,7 @@ async function main() {
     const config = getRemoteConfig();
     try {
       currentConfig = await config.getTemplate();
+      console.log({ currentConfig });
     } catch (err) {
       console.error(err);
       throw err;
@@ -37,6 +38,7 @@ async function main() {
       localConfigFile = JSON.parse(
         fs.readFileSync("/github/workspace/remote_config.json")
       );
+      console.log({ localConfigFile });
     } catch (err) {
       console.error(err);
       throw err;
