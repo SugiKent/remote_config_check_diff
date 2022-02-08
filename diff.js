@@ -46,9 +46,10 @@ async function main() {
     const response = await octokit.rest.issues.createComment({
       owner,
       repo,
-      pull_request: pr_number,
+      issue_number: pr_number,
       body: "aaa",
     });
+    console.log({ response });
     console.log("Finished");
   } catch (error) {
     core.setFailed(error.message);
