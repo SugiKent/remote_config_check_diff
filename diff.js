@@ -63,7 +63,7 @@ async function main() {
       owner,
       repo,
       issue_number: pr_number,
-      body: result,
+      body: commentBody,
     });
     console.log("Finished");
   } catch (error) {
