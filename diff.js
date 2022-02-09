@@ -33,10 +33,11 @@ async function main() {
       throw err;
     }
 
+    const targetFile = process.env.TARGET_FILE || "remote_config.json";
     let localConfigFile = "";
     try {
       localConfigFile = JSON.parse(
-        fs.readFileSync("/github/workspace/remote_config.json")
+        fs.readFileSync(`/github/workspace/${targetFile}`, "utf8")
       );
       console.log({ localConfigFile });
     } catch (err) {
