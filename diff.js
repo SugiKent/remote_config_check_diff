@@ -50,7 +50,7 @@ async function main() {
     });
     console.log({ result });
 
-    let commentBody = targetFile + "```diff " + result + " ```";
+    let commentBody = targetFile + "\n" + "```diff " + result + " ```";
 
     const token = process.env["GITHUB_TOKEN"];
     if (!token) {
